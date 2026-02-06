@@ -9,10 +9,8 @@ permalink: /advising
 
 ## advising
 
-If you are interested in working with me for your PhD, please feel free to get in touch over email and i will do my best to respond. 
+If you are interested in working with me for your PhD, please feel free to get in touch over email and I will do my best to respond. 
 
 Please also consult the department website for information about the application process. 
 
-
 </div>
-s
