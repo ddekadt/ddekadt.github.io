@@ -1,10 +1,12 @@
 - number: 9
   title: "State violence, party formation, and electoral accountability: The political legacy of the Marikana massacre."
-  publication: "Forthcoming at the <span class=\"journal\">American Political Science Review</span>."
+  publication: "(2024). <span class=\"journal\">American Political Science Review</span>, vol 118 (2)."
   authors: "Ada Johnson-Kanu and Melissa Sands"
   links:
-    - text: "Working paper version."
-      url: "#"
+    - text: "Paper."
+      url: "https://www.cambridge.org/core/journals/american-political-science-review/article/state-violence-party-formation-and-electoral-accountability-the-political-legacy-of-the-marikana-massacre/53053BE87AC75FE723B5E447E0AA0A28"
+    - text: "Replication archive."
+      url: "https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/SAA71U"
 
 - number: 8
   title: "Daughters do not affect political beliefs in a new democracy."
@@ -12,9 +14,9 @@
   authors: "Amanda Clayton and Natasha Dumas"
   links:
     - text: "Paper."
-      url: "#"
+      url: "https://www.cambridge.org/core/journals/journal-of-experimental-political-science/article/daughters-do-not-affect-political-beliefs-in-a-new-democracy/DDB1672CCC1CA3A299DFC6B246BE6A4C"
     - text: "Replication archive."
-      url: "#"
+      url: "https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/1RAQVF"
 
 - number: 7
   title: "Correlates and Consequences of the 1918 Influenza in South Africa."
@@ -22,7 +24,7 @@
   authors: "Johan Fourie, Jan Greyling, Elie Murard, and Johannes Norling"
   links:
     - text: "Paper."
-      url: "#"
+      url: "https://onlinelibrary.wiley.com/doi/10.1111/saje.12285"
 
 - number: 6
   title: "Racial isolation drives racial voting: Evidence from the new South Africa."
@@ -30,9 +32,9 @@
   authors: "Melissa Sands"
   links:
     - text: "Paper."
-      url: "#"
+      url: "https://link.springer.com/article/10.1007/s11109-019-09547-8"
     - text: "Replication archive."
-      url: "#"
+      url: "https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/R9PGXI"
 
 - number: 5
   title: "Local exposure to inequality raises support of people of low wealth for taxing the wealthy."
@@ -40,11 +42,11 @@
   authors: "Melissa Sands"
   links:
     - text: "Paper."
-      url: "#"
+      url: "https://www.nature.com/articles/s41586-020-2763-1"
     - text: "Replication archive."
-      url: "#"
+      url: "https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/C9UQVW"
   notes:
-    - html: "Media coverage: <a href=\"#\">Nature News and Views</a> by Tredoux &amp; Dixon"
+    - html: "Media coverage: <a href=\"https://www.nature.com/articles/d41586-020-02526-8\">Nature News and Views</a> by Tredoux &amp; Dixon"
 
 - number: 4
   title: "Nuanced accountability: Voter responses to service provision in Southern Africa."
@@ -52,11 +54,11 @@
   authors: "Evan S. Lieberman"
   links:
     - text: "Paper."
-      url: "#"
+      url: "https://www.cambridge.org/core/journals/british-journal-of-political-science/article/nuanced-accountability-voter-responses-to-service-delivery-in-southern-africa/506FC2E11C84ED2424B288201A22F389"
     - text: "Replication archive."
-      url: "#"
+      url: "https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/OTEWG2"
   notes:
-    - html: "Previous version available as <a href=\"#\">Afrobarometer Working Paper no. 161</a>"
+    - html: "Previous version available as <a href=\"https://www.afrobarometer.org/wp-content/uploads/2022/02/afropaperno161_do_voters_reward_good_services_in_southern_africa.pdf\">Afrobarometer Working Paper no. 161</a>"
     - html: "Media coverage: <a href=\"#\">Fin24</a>"
 
 - number: 3
@@ -65,9 +67,9 @@
   authors: "Stephen Wittels"
   links:
     - text: "Paper."
-      url: "#"
+      url: "https://www.cambridge.org/core/journals/political-science-research-and-methods/article/democratization-and-economic-output-in-subsaharan-africa/FB5DBC02D3F8302E164BAA8587FD7FCA"
     - text: "Replication archive."
-      url: "#"
+      url: "https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/I42PPJ"
 
 - number: 2
   title: "Agents of the regime? Traditional leaders and electoral behavior in South Africa."
@@ -75,17 +77,15 @@
   authors: "Horacio Larreguy"
   links:
     - text: "Paper."
-      url: "#"
+      url: "https://www.journals.uchicago.edu/doi/abs/10.1086/694540"
     - text: "Replication archive."
-      url: "#"
+      url: "https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/EKNEIH"
   notes:
-    - html: "<a href=\"#\">Fiona McGillivray Award</a> for the best Political Economy paper (APSA 2014)"
+    - html: "<a href=\"https://apsanet.org/membership/organized-sections/organized-section-awards/past-awards/section-25/\">Fiona McGillivray Award</a> for the best Political Economy paper (APSA 2014)"
 
 - number: 1
   title: "Voting then, voting now: The long term consequences of participation in South Africa's first democratic election."
   publication: "(2017). <span class=\"journal\">Journal of Politics</span>, vol 79 (2)."
   links:
     - text: "Paper."
-      url: "#"
-    - text: "Replication archive."
-      url: "#"
+      url: "https://www.journals.uchicago.edu/doi/abs/10.1086/690065"

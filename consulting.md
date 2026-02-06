@@ -9,6 +9,8 @@ permalink: /consulting
 
 ## private consulting
 
-Information about private consulting services coming soon.
+i have extensive experience in the application of causal inference in industry for better decision making.
+
+i am available for private consulting work, either in relation to elections and South African politics, or in relation to applied causal inference problems. 
 
 </div>
