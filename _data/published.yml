@@ -1,0 +1,91 @@
+- number: 9
+  title: "State violence, party formation, and electoral accountability: The political legacy of the Marikana massacre."
+  publication: "Forthcoming at the <span class=\"journal\">American Political Science Review</span>."
+  authors: "Ada Johnson-Kanu and Melissa Sands"
+  links:
+    - text: "Working paper version."
+      url: "#"
+
+- number: 8
+  title: "Daughters do not affect political beliefs in a new democracy."
+  publication: "(2023). <span class=\"journal\">Journal of Experimental Political Science</span>, vol 10 (1)."
+  authors: "Amanda Clayton and Natasha Dumas"
+  links:
+    - text: "Paper."
+      url: "#"
+    - text: "Replication archive."
+      url: "#"
+
+- number: 7
+  title: "Correlates and Consequences of the 1918 Influenza in South Africa."
+  publication: "(2021). <span class=\"journal\">South African Journal of Economics</span>, vol 89 (2)."
+  authors: "Johan Fourie, Jan Greyling, Elie Murard, and Johannes Norling"
+  links:
+    - text: "Paper."
+      url: "#"
+
+- number: 6
+  title: "Racial isolation drives racial voting: Evidence from the new South Africa."
+  publication: "(2021). <span class=\"journal\">Political Behavior</span>, vol 43 (1)."
+  authors: "Melissa Sands"
+  links:
+    - text: "Paper."
+      url: "#"
+    - text: "Replication archive."
+      url: "#"
+
+- number: 5
+  title: "Local exposure to inequality raises support of people of low wealth for taxing the wealthy."
+  publication: "(2020). <span class=\"journal\">Nature</span>, vol 586."
+  authors: "Melissa Sands"
+  links:
+    - text: "Paper."
+      url: "#"
+    - text: "Replication archive."
+      url: "#"
+  notes:
+    - html: "Media coverage: <a href=\"#\">Nature News and Views</a> by Tredoux &amp; Dixon"
+
+- number: 4
+  title: "Nuanced accountability: Voter responses to service provision in Southern Africa."
+  publication: "(2020). <span class=\"journal\">British Journal of Political Science</span>, vol 50 (1)."
+  authors: "Evan S. Lieberman"
+  links:
+    - text: "Paper."
+      url: "#"
+    - text: "Replication archive."
+      url: "#"
+  notes:
+    - html: "Previous version available as <a href=\"#\">Afrobarometer Working Paper no. 161</a>"
+    - html: "Media coverage: <a href=\"#\">Fin24</a>"
+
+- number: 3
+  title: "Democratization and economic output in Sub-Saharan Africa."
+  publication: "(2019). <span class=\"journal\">Political Science Research and Methods</span>, vol 7 (1)."
+  authors: "Stephen Wittels"
+  links:
+    - text: "Paper."
+      url: "#"
+    - text: "Replication archive."
+      url: "#"
+
+- number: 2
+  title: "Agents of the regime? Traditional leaders and electoral behavior in South Africa."
+  publication: "(2018). <span class=\"journal\">Journal of Politics</span>, vol 80 (2)."
+  authors: "Horacio Larreguy"
+  links:
+    - text: "Paper."
+      url: "#"
+    - text: "Replication archive."
+      url: "#"
+  notes:
+    - html: "<a href=\"#\">Fiona McGillivray Award</a> for the best Political Economy paper (APSA 2014)"
+
+- number: 1
+  title: "Voting then, voting now: The long term consequences of participation in South Africa's first democratic election."
+  publication: "(2017). <span class=\"journal\">Journal of Politics</span>, vol 79 (2)."
+  links:
+    - text: "Paper."
+      url: "#"
+    - text: "Replication archive."
+      url: "#"

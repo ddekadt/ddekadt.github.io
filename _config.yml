@@ -1,0 +1,13 @@
+title: Daniel de Kadt
+description: Academic website of Daniel de Kadt
+url: ""
+baseurl: ""
+
+# Build settings
+markdown: kramdown
+permalink: pretty
+
+# Exclude from build
+exclude:
+  - README.md
+  - old_site

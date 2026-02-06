@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% if page.title and page.title != site.title %}{{ page.title }} — {{ site.title }}{% else %}{{ site.title }}{% endif %}</title>
+    <link rel="stylesheet" href="{{ '/css/style.css' | relative_url }}">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="site-name"><a href="{{ '/' | relative_url }}">daniel de kadt</a></h1>
+            <nav>
+                <ul>
+                    <li><a href="{{ '/research' | relative_url }}"{% if page.nav == 'research' %} class="active"{% endif %}>research</a></li>
+                    <li><a href="{{ '/teaching' | relative_url }}"{% if page.nav == 'teaching' %} class="active"{% endif %}>teaching</a></li>
+                    <li><a href="{{ '/advising' | relative_url }}"{% if page.nav == 'advising' %} class="active"{% endif %}>advising</a></li>
+                    <li><a href="{{ '/consulting' | relative_url }}"{% if page.nav == 'consulting' %} class="active"{% endif %}>consulting</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            {{ content }}
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <span>&copy; {{ site.time | date: '%Y' }} Daniel de Kadt</span>
+        </div>
+    </footer>
+</body>
+</html>
