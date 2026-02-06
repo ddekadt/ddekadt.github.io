@@ -1,18 +1,27 @@
+- title: "Good description."
+  authors: "Anna Grzymala-Busse"
+  links:
+    - text: "Paper."
+      url: "https://github.com/ddekadt/good_description"
+
+- title: "The tools of racial disenfranchisement: Lessons from 135,457 individual voter records."
+  authors: "Joachim Wehner"
+  notes:
+    - html: "Media coverage: <a href=\"https://blogs.lse.ac.uk/africaatlse/2023/07/20/cecil-rhodes-distorted-politics-in-south-africa-long-before-apartheid/\">Africa at LSE</a>"
+  links: 
+    - text: "Paper."
+      url: "https://osf.io/by82s_v2/"
+      
 - title: "Bringing the polls to the people: How increasing electoral access encourages turnout but exacerbates political inequality."
   links:
     - text: "Paper."
       url: "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=2922125"
 
-- title: "Tools of Voter Suppression: Racial Disenfranchisement in the Cape of Good Hope."
-  authors: "Joachim Wehner"
-  notes:
-    - html: "Media coverage: <a href=\"https://blogs.lse.ac.uk/africaatlse/2023/07/20/cecil-rhodes-distorted-politics-in-south-africa-long-before-apartheid/\">Africa at LSE</a>"
-
 - title: "Does improving electoral access facilitate clientelism? A reassessment of theory and evidence."
   authors: "J. Andrew Harris"
 
-- title: "Geographic distance in quantitative social science: Concept, measurement, and analysis."
-  authors: "Melissa Sands"
+- title: "Distance in quantitative social science"
+  authors: "Anton Strezhnev, Melissa Sands, Maggie X. Wang"
 
 - title: "Exposure to inequality as an explanation of the Robin Hood paradox."
   authors: "Melissa Sands"
