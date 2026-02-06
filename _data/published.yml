@@ -1,3 +1,12 @@
+- number: 10
+  title: "Replication of 'Instrumentally Inclusive: The Political Psychology of Homonationalism' (Turnbull-Dugarte and López Ortega 2024)."
+  publication: "Forthcoming at the <span class=\"journal\">American Political Science Review</span>."
+  links:
+    - text: "Paper."
+      url: "https://www.cambridge.org/core/journals/american-political-science-review/article/replication-of-instrumentally-inclusive-the-political-psychology-of-homonationalism-turnbulldugarte-and-lopez-ortega-2024/CBE4AAA8A4175BB85AD2B359EA58EEEE"
+    - text: "Replication archive."
+      url: "https://github.com/ddekadt/instrumentally_inclusive_replication_public"
+
 - number: 9
   title: "State violence, party formation, and electoral accountability: The political legacy of the Marikana massacre."
   publication: "(2024). <span class=\"journal\">American Political Science Review</span>, vol 118 (2)."
