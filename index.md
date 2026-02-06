@@ -2,6 +2,8 @@
 layout: home
 ---
 
-I'm a social and data scientist interested in issues surrounding politics, elections, voting, democracy, and South Africa.
+I'm a social and data scientist with 15 years of expertise in the design and application of causal inference and machine learning techniques in complex settings.
 
-My research uses quantitative methods — including experiments, quasi-experiments, and machine learning — to study democratic accountability, electoral access, and the politics of inequality, primarily in the South African context.
+I am substantively interested in democracy, inequality, and the politics of South Africa, but also work on issues of meta-science and causal inference.
+
+I am currently a faculty member at the London School of Economics, before which I worked at the University of California, Merced. My PhD is from the Massachusetts Institute of Technology. From 2021 through 2023 I worked in the Data Science vertical at Deliveroo.

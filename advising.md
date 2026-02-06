@@ -11,7 +11,8 @@ permalink: /advising
 
 If you are interested in working with me for your PhD, please feel free to get in touch over email and i will do my best to respond. 
 
-please also consult the department website for information about the application process. 
+Please also consult the department website for information about the application process. 
 
 
 </div>
+s
