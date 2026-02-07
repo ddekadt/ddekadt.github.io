@@ -254,7 +254,10 @@ footer a:hover {
     }
 
     .bio-links {
-        justify-content: center;
+        flex-wrap: nowrap;
+        gap: 0;
+        justify-content: space-between;
+        font-size: 0.8rem;
     }
 
     .research-columns {
