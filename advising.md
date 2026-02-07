@@ -13,7 +13,7 @@ permalink: /advising
 
 If you are interested in working with me for your PhD, feel free to get in touch over email and I will do my best to respond. 
 
-Note that I do not control admissions -- please also consult the department website for information about the application process.
+Note that I do not control admissions -- please consult the department website for information about the application process.
 
 If you are a past or current student and would like to request a letter of reference, please email me as soon as you can. Please also prepare a package (preferably a shared Google drive that you can update dynamically) that includes:
 - your up-to-date CV
