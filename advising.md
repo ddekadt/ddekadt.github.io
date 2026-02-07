@@ -9,9 +9,16 @@ permalink: /advising
 
 <div markdown="1">
 
-## prospective PhDs
+## current and prospective students
 
 If you are interested in working with me for your PhD, please feel free to get in touch over email and I will do my best to respond. Please also consult the department website for information about the application process.
+
+If you would like to request a letter of reference, please email me as soon as you can. Please also prepare a package (e.g. a zip folder or a shared google drive) that includes:
+- your up-to-date CV
+- any available transcripts
+- draft statements of purpose and writing samples
+- a spreadsheet of relevant programs and deadlines
+- a one page memo that highlights any important points in our relationship, or additional information you would like me to consider as I write your letter
 
 </div>
 
