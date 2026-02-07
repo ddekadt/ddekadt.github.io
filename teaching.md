@@ -27,6 +27,8 @@ I teach (or have taught) a range of courses at the London School of Economics an
 
 ## workshops
 
+I also teach occasional short workshops:
+
 [Reproducible Pipelines for Social Scientific Research in R](https://github.com/ddekadt/MY560_reproducible_pipelines_R)
 
 [Data Visualisation](https://github.com/ddekadt/MY580_data_visualisation)
