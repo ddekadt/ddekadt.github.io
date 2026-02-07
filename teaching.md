@@ -25,6 +25,6 @@ I also teach workshops on specific topics:
 
 [Data Visualisation](https://github.com/ddekadt/MY580_data_visualisation)
 
-[Causal Inference with Spatial Data (coming soon)]()
+Causal Inference with Spatial Data (coming soon)
 
 </div>

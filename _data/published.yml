@@ -68,7 +68,7 @@
       url: "https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/OTEWG2"
   notes:
     - html: "Previous version available as <a href=\"https://www.afrobarometer.org/wp-content/uploads/2022/02/afropaperno161_do_voters_reward_good_services_in_southern_africa.pdf\">Afrobarometer Working Paper no. 161</a>"
-    - html: "Media coverage: <a href=\"#\">Fin24</a>"
+    - html: "Media coverage: Fin24"
 
 - number: 3
   title: "Democratization and economic output in Sub-Saharan Africa."
