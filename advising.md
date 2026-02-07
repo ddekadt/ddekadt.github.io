@@ -11,9 +11,7 @@ permalink: /advising
 
 ## prospective PhDs
 
-If you are interested in working with me for your PhD, please feel free to get in touch over email and I will do my best to respond.
-
-Please also consult the department website for information about the application process.
+If you are interested in working with me for your PhD, please feel free to get in touch over email and I will do my best to respond. Please also consult the department website for information about the application process.
 
 </div>
 
@@ -23,9 +21,7 @@ Please also consult the department website for information about the application
 
 [Job talk visit guide]({{ '/assets/jobvisit_guide_ddk.pdf' | relative_url }})
 
-[Job talk guide]({{ '/assets/approach_to_jobtalk_ddk.pdf' | relative_url }})
-
-[Job talk slides (source materials)]({{ '/assets/approach_to_jobtalk_ddk.zip' | relative_url }})
+[Job talk guide]({{ '/assets/approach_to_jobtalk_ddk.pdf' | relative_url }}) [(beamer source materials)]({{ '/assets/approach_to_jobtalk_ddk.zip' | relative_url }})
 
 </div>
 
