@@ -5,9 +5,11 @@ nav: teaching
 permalink: /teaching
 ---
 
-<div class="page-content" markdown="1">
+<div class="research-columns">
 
-## teaching
+<div markdown="1">
+
+## courses
 
 I teach (or have taught) a range of courses at the London School of Economics and Political Science:
 
@@ -19,12 +21,18 @@ I teach (or have taught) a range of courses at the London School of Economics an
 
 [ME314: Introduction to Data Science and Machine Learning (summer school)](https://github.com/me314-lse)
 
-I also teach workshops on specific topics:
+</div>
+
+<div markdown="1">
+
+## workshops
 
 [Reproducible Pipelines for Social Scientific Research in R](https://github.com/ddekadt/MY560_reproducible_pipelines_R)
 
 [Data Visualisation](https://github.com/ddekadt/MY580_data_visualisation)
 
 Causal Inference with Spatial Data (coming soon)
+
+</div>
 
 </div>
