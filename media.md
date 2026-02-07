@@ -9,7 +9,7 @@ permalink: /media
 
 <div markdown="1">
 
-## short form writing
+## opinion and analysis
 
 I have written for numerous news and opinion outlets including the Business Day, Mail & Guardian, Washington Post, and others. I have also appeared on both the BBC and eNCA news. If you are looking for written or interview commentary on South African politics, please reach out.
 
