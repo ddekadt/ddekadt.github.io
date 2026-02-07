@@ -111,9 +111,19 @@ main {
 .bio-links {
     margin-top: 16px;
     display: flex;
-    gap: 18px;
+    gap: 20px;
     flex-wrap: wrap;
-    font-size: 0.9rem;
+    font-size: 1.15rem;
+    align-items: center;
+}
+
+.bio-links a {
+    color: #555;
+}
+
+.bio-links a:hover {
+    color: #c8962e;
+    text-decoration: none;
 }
 
 /* Section Headers */
