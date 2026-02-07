@@ -144,6 +144,18 @@ h3 {
     align-items: start;
 }
 
+.research-columns p {
+    margin-bottom: 16px;
+}
+
+.research-columns ul {
+    margin: 12px 0 20px 20px;
+}
+
+.research-columns li {
+    margin-bottom: 8px;
+}
+
 /* Paper Entries */
 .paper {
     margin-bottom: 28px;
