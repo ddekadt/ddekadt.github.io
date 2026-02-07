@@ -238,7 +238,13 @@ footer a:hover {
     }
 
     nav ul {
-        gap: 16px;
+        flex-wrap: nowrap;
+        gap: 0;
+        justify-content: space-between;
+    }
+
+    nav a {
+        font-size: 0.85rem;
     }
 
     .bio {
