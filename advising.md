@@ -11,9 +11,11 @@ permalink: /advising
 
 ## current and prospective students
 
-If you are interested in working with me for your PhD, please feel free to get in touch over email and I will do my best to respond. Please also consult the department website for information about the application process.
+If you are interested in working with me for your PhD, feel free to get in touch over email and I will do my best to respond. 
 
-If you would like to request a letter of reference, please email me as soon as you can. Please also prepare a package (e.g. a zip folder or a shared google drive) that includes:
+Note that I do not control admissions -- please also consult the department website for information about the application process.
+
+If you are a past or current student and would like to request a letter of reference, please email me as soon as you can. Please also prepare a package (preferably a shared Google drive that you can update dynamically) that includes:
 - your up-to-date CV
 - any available transcripts
 - draft statements of purpose and writing samples
@@ -24,7 +26,7 @@ If you would like to request a letter of reference, please email me as soon as y
 
 <div markdown="1">
 
-## materials
+## helpful materials
 
 [Job talk visit guide]({{ '/assets/jobvisit_guide_ddk.pdf' | relative_url }})
 
