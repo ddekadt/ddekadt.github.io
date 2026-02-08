@@ -98,3 +98,5 @@
   links:
     - text: "Paper."
       url: "https://www.journals.uchicago.edu/doi/abs/10.1086/690065"
+    - text: "Replication archive."
+      url: "https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/GOLMTC"
