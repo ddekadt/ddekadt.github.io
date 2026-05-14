@@ -33,7 +33,7 @@ I also teach occasional short workshops:
 
 [Data Visualisation](https://github.com/ddekadt/MY580_data_visualisation)
 
-Causal Inference with Spatial Data (coming soon)
+[Agentic AI for Data Science and Social Science Research](https://github.com/ddekadt/MY580_agentic_ai)
 
 </div>
 
