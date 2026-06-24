@@ -1,14 +1,20 @@
+- title: "Do voters want (and reward) stricter political finance regulation? Evidence from South Africa."
+  authors: "Sarah Brierley"
+  status: "Under review."
+
 - title: "Good description."
   authors: "Anna Grzymala-Busse"
+  status: "Under review."
   links:
     - text: "Paper."
       url: "https://github.com/ddekadt/good_description"
 
 - title: "The tools of racial disenfranchisement: Lessons from 135,457 individual voter records."
   authors: "Joachim Wehner"
+  status: "Under review."
   notes:
     - html: "Media coverage: <a href=\"https://blogs.lse.ac.uk/africaatlse/2023/07/20/cecil-rhodes-distorted-politics-in-south-africa-long-before-apartheid/\">Africa at LSE</a>"
-  links: 
+  links:
     - text: "Paper."
       url: "https://osf.io/by82s_v2/"
       

@@ -33,6 +33,7 @@ layout: default
         <div class="paper">
             <span class="title">{{ paper.title }}</span>
             {% if paper.authors %}<br><span class="authors">(with {{ paper.authors }})</span>{% endif %}
+            {% if paper.status %} {{ paper.status }}{% endif %}
             {% if paper.links %}
             <div class="links">
                 {% for link in paper.links %}<a href="{{ link.url }}">{{ link.text }}</a>
