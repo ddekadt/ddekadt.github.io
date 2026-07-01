@@ -13,11 +13,11 @@ permalink: /teaching
 
 At **Cornell University** I teach a range of courses: 
 
-[GOVT 6039: Statistical and Computational Models] (Fall 2026, details coming soon)
+GOVT 6039: Statistical and Computational Models (Fall 2026, details coming soon)
 
-[GOVT 2309 - Data Science for Political Science I] (Spring 2027, details coming soon)
+GOVT 2309 - Data Science for Political Science I (Spring 2027, details coming soon)
 
-[GOVT 2XXX - Data Science for Political Science II] (coming soon)
+GOVT 2XXX - Data Science for Political Science II (coming soon)
 
 I taught a range of courses at the **London School of Economics and Political Science**, including:
 
