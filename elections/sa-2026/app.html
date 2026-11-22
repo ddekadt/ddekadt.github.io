@@ -5,8 +5,10 @@
 <title>South Africa 2026 local elections: census and the vote</title>
 <style>
   body { margin: 0; font-family: Roboto, system-ui, -apple-system, "Segoe UI", sans-serif; color: #2b2b29; background: #fff; }
-  .wrap { display: grid; grid-template-columns: 270px minmax(0, 1fr); gap: 18px; padding: 12px; }
-  .panel { font-size: 13px; }
+  .wrap { display: grid; grid-template-columns: 270px minmax(0, 1fr); grid-template-areas: "ctl main" "info main"; grid-template-rows: auto 1fr; column-gap: 18px; padding: 12px; }
+  .panel { grid-area: ctl; font-size: 13px; }
+  .info { grid-area: info; font-size: 13px; }
+  #main { grid-area: main; min-width: 0; }
   .panel h1 { font-size: 15px; margin: 0 0 8px; }
   .panel label { display: block; font-weight: 700; margin: 9px 0 3px; font-size: 12px; }
   .panel select { width: 100%; font: inherit; padding: 3px; }
@@ -26,28 +28,46 @@
   .grid line { stroke: #eeede8; }
   .lab { font-size: 12px; fill: #4a4945; }
   #tip { position: fixed; display: none; pointer-events: none; background: rgba(255,255,255,0.96); border: 1px solid #c9c8c3; border-radius: 4px; padding: 5px 8px; font-size: 12px; line-height: 1.35; box-shadow: 0 1px 3px rgba(0,0,0,0.15); max-width: 280px; z-index: 5; }
-  @media (max-width: 720px) { .wrap { grid-template-columns: minmax(0, 1fr); } }
+  /* Phones (and the page's iframe on phones): controls, then the plot, then the help and sources, so the
+     plot is reached without scrolling past the help. Census and Fit share a row. Selects at 16px: iOS Safari
+     zooms the whole page into any form control whose text is smaller. Radio rows padded to be easier to tap. */
+  @media (max-width: 720px) {
+    .wrap { grid-template-columns: minmax(0, 1fr); grid-template-areas: "ctl" "main" "info"; grid-template-rows: auto; row-gap: 12px; padding: 10px 8px; }
+    .panel { display: grid; grid-template-columns: 1fr 1fr; column-gap: 14px; grid-template-areas: "h h" "dv dv" "yr fit" "iv iv" "prov prov"; }
+    .panel h1 { grid-area: h; margin-bottom: 2px; } .g-dv { grid-area: dv; } .g-yr { grid-area: yr; } .g-iv { grid-area: iv; } .g-fit { grid-area: fit; } .g-prov { grid-area: prov; }
+    .panel label { margin-top: 8px; font-size: 13px; }
+    .panel select { font-size: 16px; padding: 5px 4px; }
+    .radio { gap: 16px; font-size: 15px; }
+    .radio label { display: inline-flex; align-items: center; gap: 4px; min-height: 32px; font-size: 15px; margin: 0; }
+    .radio input { width: 18px; height: 18px; margin: 0; }
+    #stats { font-size: 14px; min-height: 0; }
+    .info .help:first-child { margin-top: 4px; }
+    .help { font-size: 13px; } .help summary { padding: 6px 0; }
+  }
+  @media (pointer: coarse) { .panel select { font-size: 16px; } }   /* touch screens in landscape too (two columns): no iOS zoom on focus */
 </style></head>
 <body>
 <div class="wrap">
   <div class="panel">
     <h1>Census and the 2026 vote, by ward</h1>
-    <label for="dv">Election outcome (y)</label>
-    <select id="dv"></select>
-    <label>Census</label>
-    <div class="radio"><label><input type="radio" name="yr" value="2011" checked> 2011</label><label><input type="radio" name="yr" value="2022"> 2022</label></div>
-    <label for="iv">Census variable (x)</label>
-    <select id="iv"></select>
-    <label>Fit</label>
-    <div class="radio"><label><input type="radio" name="fit" value="lin" checked> Linear</label><label><input type="radio" name="fit" value="loess"> Loess</label></div>
-    <label for="prov">Wards</label>
-    <select id="prov"><option value="">All provinces</option></select>
+    <div class="g-dv"><label for="dv">Election outcome (y)</label>
+    <select id="dv"></select></div>
+    <div class="g-yr"><label>Census</label>
+    <div class="radio"><label><input type="radio" name="yr" value="2011" checked> 2011</label><label><input type="radio" name="yr" value="2022"> 2022</label></div></div>
+    <div class="g-iv"><label for="iv">Census variable (x)</label>
+    <select id="iv"></select></div>
+    <div class="g-fit"><label>Fit</label>
+    <div class="radio"><label><input type="radio" name="fit" value="lin" checked> Linear</label><label><input type="radio" name="fit" value="loess"> Loess</label></div></div>
+    <div class="g-prov"><label for="prov">Wards</label>
+    <select id="prov"><option value="">All provinces</option></select></div>
+  </div>
+  <div class="info">
     <details class="help" open><summary>How to use this tool</summary>
       <ul>
         <li>Choose an election outcome to plot on the vertical axis.</li>
         <li>Choose a census year and a census variable for the horizontal axis. Census 2011 offers more variables; Census 2022 is more recent but covers only population group, age, sex and density, and its figures are modelled estimates.</li>
         <li>Choose a straight-line (linear) or smoothed (loess) fit, and all wards or a single province.</li>
-        <li>Hover over a point to see its ward and values.</li>
+        <li>Hover over (or tap) a point to see its ward and values.</li>
         <li>The sentence above the plot provides interpretation based on the regression estimate shown below the plot.</li>
       </ul>
     </details>
@@ -60,7 +80,7 @@
     </details>
     <div class="note">Sources: Electoral Commission of South Africa (election returns), Statistics South Africa (Census 2011, Census 2022), Municipal Demarcation Board (ward boundaries).</div>
   </div>
-  <div>
+  <div id="main">
     <div id="stats"></div>
     <svg id="plot" viewBox="0 0 760 520" role="img" aria-label="Scatter plot of wards"></svg>
     <div id="reg"></div>
@@ -109,19 +129,27 @@ function ticks(lo, hi, n) { const span = hi - lo || 1, step0 = span / n, mag = 1
   const step = (r < 1.5 ? 1 : r < 3 ? 2 : r < 7 ? 5 : 10) * mag; const t = []; for (let v = Math.ceil(lo / step) * step; v <= hi + 1e-9; v += step) t.push(+v.toFixed(10)); return t; }
 const f2 = v => (!isFinite(v) ? "–" : Math.abs(v) >= 100 ? v.toFixed(0) : Math.abs(v) >= 10 ? v.toFixed(1) : Math.abs(v) >= 0.01 || v === 0 ? v.toFixed(2) : v.toPrecision(2));
 // ---- draw ----
+// The plot's coordinate system follows its column's width (up to 760, as before), so text and points keep
+// their size on narrow screens instead of shrinking with the whole drawing; in the one-column (phone) layout
+// it is nearly square.
+let VBW = 760, VBH = 520;
+const oneCol = matchMedia("(max-width: 720px)");   // same breakpoint as the CSS
+function dims() { const cw = $("main").clientWidth || 760, W = Math.round(Math.min(760, Math.max(280, cw)));
+  return [W, Math.round(W * (oneCol.matches && W < 500 ? 0.95 : 520 / 760))]; }   // phone held upright: nearly square
 function draw() {
   const dk = $("dv").value, ik = $("iv").value, prov = $("prov").value, fit = document.querySelector("input[name=fit]:checked").value;
   const dvi = CFG.dv.find(v => v.key === dk), ivl = $("iv").options[$("iv").selectedIndex].text;
   const X = [], Y = [], I = [];
   for (let i = 0; i < N; i++) { const x = col[ik][i], y = col[dk][i]; if (x === null || y === null || (prov && col.prov[i] !== prov)) continue; X.push(x); Y.push(y); I.push(i); }
   const Gk = I.map(i => col.code[i]);
-  const W = 760, H = 520, m = { l: 62, r: 14, t: 10, b: 52 }, pw = W - m.l - m.r, ph = H - m.t - m.b;
-  if (X.length < 10) { $("plot").innerHTML = "<text x=\"380\" y=\"260\" text-anchor=\"middle\" class=\"lab\">Too few wards with data for this choice.</text>"; $("stats").innerHTML = ""; $("reg").innerHTML = ""; return; }
+  const [W, H] = dims(); VBW = W; VBH = H; $("plot").setAttribute("viewBox", `0 0 ${W} ${H}`);
+  const m = { l: W < 560 ? 50 : 62, r: W < 560 ? 8 : 14, t: 10, b: W < 560 ? 46 : 52 }, pw = W - m.l - m.r, ph = H - m.t - m.b, nt = W < 560 ? 5 : 6;
+  if (X.length < 10) { $("plot").innerHTML = `<text x="${W / 2}" y="${H / 2}" text-anchor="middle" class="lab">Too few wards with data for this choice.</text>`; $("stats").innerHTML = ""; $("reg").innerHTML = ""; return; }
   let x0 = Math.min(...X), x1 = Math.max(...X), y0 = Math.min(...Y), y1 = Math.max(...Y);
   const px = (x1 - x0) * 0.03 || 1, py = (y1 - y0) * 0.04 || 1; x0 -= px; x1 += px; y0 -= py; y1 += py;
   const sx = v => m.l + (v - x0) / (x1 - x0) * pw, sy = v => m.t + ph - (v - y0) / (y1 - y0) * ph;
   let g = "";
-  const xt = ticks(x0, x1, 6), yt = ticks(y0, y1, 6);
+  const xt = ticks(x0, x1, nt), yt = ticks(y0, y1, nt);
   g += "<g class=\"grid\">" + xt.map(t => `<line x1="${sx(t)}" x2="${sx(t)}" y1="${m.t}" y2="${m.t + ph}"/>`).join("") + yt.map(t => `<line x1="${m.l}" x2="${m.l + pw}" y1="${sy(t)}" y2="${sy(t)}"/>`).join("") + "</g>";
   const cpt = dvi.col, op = X.length > 2000 ? 0.28 : 0.45;
   for (let j = 0; j < X.length; j++) { const i = I[j];
@@ -134,10 +162,15 @@ function draw() {
     g += `<path d="${dpath}" fill="none" stroke="#2b2b29" stroke-width="2"/>`; }
   g += `<g class="axis"><line x1="${m.l}" x2="${m.l + pw}" y1="${m.t + ph}" y2="${m.t + ph}"/>` + xt.map(t => `<text x="${sx(t)}" y="${m.t + ph + 16}" text-anchor="middle">${t}</text>`).join("")
      + `<line x1="${m.l}" x2="${m.l}" y1="${m.t}" y2="${m.t + ph}"/>` + yt.map(t => `<text x="${m.l - 6}" y="${sy(t) + 4}" text-anchor="end">${t}</text>`).join("") + "</g>";
-  g += `<text class="lab" x="${m.l + pw / 2}" y="${H - 10}" text-anchor="middle">${esc(ivl)}</text>`;
-  g += `<text class="lab" transform="translate(14,${m.t + ph / 2}) rotate(-90)" text-anchor="middle">${esc(dvi.label)}</text>`;
+  g += `<text class="lab" id="xlab" x="${m.l + pw / 2}" y="${H - 10}" text-anchor="middle">${esc(ivl)}</text>`;
+  g += `<text class="lab" id="ylab" transform="translate(14,${m.t + ph / 2}) rotate(-90)" text-anchor="middle">${esc(dvi.label)}</text>`;
   g += `<circle id="hl" r="5" fill="none" stroke="#2b2b29" stroke-width="1.5" style="display:none"/>`;
   $("plot").innerHTML = g;
+  // Long axis titles on a narrow plot: slide the title along its axis to stay inside the drawing, and shrink it if it is still too long
+  [["xlab", W, m.l + pw / 2, c => ["x", c]], ["ylab", H, m.t + ph / 2, c => ["transform", `translate(14,${c}) rotate(-90)`]]].forEach(([id, len, c0, at]) => {
+    const el = $(id), L = el.getComputedTextLength(), room = len - 8;
+    if (L > room) el.style.fontSize = (12 * room / L).toFixed(1) + "px";
+    const half = Math.min(L, room) / 2, c = Math.min(Math.max(c0, 4 + half), len - 4 - half); el.setAttribute(...at(c)); });
   PTS = I.map((i, j) => ({ i, x: X[j], y: Y[j], px: sx(X[j]), py: sy(Y[j]) }));
   LAB = { x: ivl, y: dvi.label };
   const ivo = CFG.iv[yr()].find(v => v.key === ik);
@@ -155,7 +188,7 @@ function draw() {
 let PTS = [], LAB = {};
 const tip = document.createElement("div"); tip.id = "tip"; document.body.appendChild(tip);
 $("plot").addEventListener("mousemove", ev => {
-  const svg = $("plot"), r = svg.getBoundingClientRect(), k = 760 / r.width;     // viewBox units per screen px
+  const svg = $("plot"), r = svg.getBoundingClientRect(), k = VBW / r.width;     // viewBox units per screen px
   const mx = (ev.clientX - r.left) * k, my = (ev.clientY - r.top) * k;
   let best = null, bd = (8 * k) ** 2;
   for (const p of PTS) { const d = (p.px - mx) ** 2 + (p.py - my) ** 2; if (d < bd) { bd = d; best = p; } }
@@ -167,7 +200,15 @@ $("plot").addEventListener("mousemove", ev => {
   const tx = Math.min(ev.clientX + 14, window.innerWidth - tip.offsetWidth - 8), ty = Math.max(ev.clientY - tip.offsetHeight - 10, 8);
   tip.style.left = tx + "px"; tip.style.top = ty + "px";
 });
-$("plot").addEventListener("mouseleave", () => { tip.style.display = "none"; const hl = document.getElementById("hl"); if (hl) hl.style.display = "none"; });
+function hideTip() { tip.style.display = "none"; const hl = document.getElementById("hl"); if (hl) hl.style.display = "none"; }
+$("plot").addEventListener("mouseleave", hideTip);
+window.addEventListener("scroll", hideTip, { passive: true });   // the tip is fixed to the screen: after a tap and a scroll it would float away from its ward
+// Redraw when the plot column changes width (phone rotated, window resized); size the page's iframe to the app.
+new ResizeObserver(() => { const [w, h] = dims(); if (w !== VBW || h !== VBH) { hideTip(); draw(); } }).observe($("main"));
+if (window.parent !== window) {   // framed by index.html: report the app's height so the page can show it whole, without a scroll box inside the page
+  const wrap = document.querySelector(".wrap");
+  new ResizeObserver(() => parent.postMessage({ censusAppHeight: Math.ceil(wrap.getBoundingClientRect().height) }, "*")).observe(wrap);
+}
 document.querySelectorAll("input[name=yr]").forEach(e => e.onchange = () => { fillIV(); draw(); });
 document.querySelectorAll("input[name=fit]").forEach(e => e.onchange = draw);
 $("dv").onchange = draw; $("iv").onchange = draw; $("prov").onchange = draw;
