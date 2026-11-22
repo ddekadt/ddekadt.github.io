@@ -22,6 +22,7 @@
   #stats { font-size: 13px; margin: 0 0 6px; line-height: 1.45; min-height: 3em; }
   #stats b { font-weight: 700; }
   #reg { font-size: 12px; color: #6b6a66; margin-top: 6px; line-height: 1.4; }
+  #reg .se-note { margin-top: 4px; }
   #reg .warn { margin-top: 6px; padding: 6px 8px; color: #5c3b00; background: #fdf3e1; border-left: 3px solid #c98a1b; border-radius: 2px; }
   svg { width: 100%; height: auto; display: block; }
   .axis text { font-size: 11px; fill: #6b6a66; }
@@ -77,7 +78,7 @@
     <details class="help"><summary>How to read the results</summary>
       <ul>
         <li>Each point is a 2026 ward.</li>
-        <li>The slope is the expected difference in the outcome for a ward one unit higher on the census variable (e.g. one percentage point), from an ordinary least squares regression with each ward counted once. Its confidence interval allows for wards in the same municipality being alike (standard errors clustered by municipality). Where the selection covers fewer than 10 municipalities (any Gauteng or metro view, or a party that stood in few municipalities of a province), there are too few to cluster on: the tool then uses robust (HC1) standard errors, which are likely to be too small, and shows a warning.</li>
+        <li>The slope is the expected difference in the outcome for a ward one unit higher on the census variable (e.g. one percentage point), from an ordinary least squares regression with each ward counted once. Its confidence interval allows for wards in the same municipality being alike (standard errors clustered by municipality). Where the selection covers fewer than 10 municipalities (any Gauteng view, or a party that stood in few municipalities of a province), there are too few to cluster on: the tool then uses robust (HC1) standard errors and shows a warning. Within one metro all wards are in one municipality, so there is nothing to cluster on and robust (HC1) standard errors are used.</li>
         <li>These are associations across wards, not effects on individual voters.</li>
       </ul>
     </details>
@@ -202,15 +203,16 @@ function draw() {
     + (r.lo <= 0 && r.hi >= 0 ? " (not distinguishable from zero)" : "") + ".";
   const munis = n => n === 1 ? "1 municipality" : n + " municipalities";
   $("reg").innerHTML = `Linear regression (OLS) estimate: slope ${f2(r.b)} (95% CI ${f2(r.lo)} to ${f2(r.hi)}; SE ${f2(r.se)}, ${r.clustered ? "clustered by municipality" : "robust (HC1)"}) · ${r.n.toLocaleString("en-ZA")} wards${metro ? " in " + esc(metroName(metro)) : " in " + munis(r.G) + (prov ? inProv(prov) : "")}${zeroNote}${fit === "loess" ? " · the curve is a loess smoother; the slope is from the linear fit" : ""}`
-    + (r.clustered ? "" : "<div class=\"warn\">" + thinWarning(r, dvi, ik, prov, munis, metro) + "</div>");
+    + (r.clustered ? "" : metro
+        // one metro is one municipality: nothing to cluster on, so robust standard errors are the right ones (Daniel, 2026-11-22)
+        ? "<div class=\"se-note\">All these wards are in one municipality, " + esc(metroName(metro)) + ", so there is nothing to cluster on: standard errors are robust (HC1).</div>"
+        : "<div class=\"warn\">" + thinWarning(r, dvi, ik, prov, munis) + "</div>");
 }
 // Too few municipalities to cluster on (see ols): say why, and which standard errors are shown instead
 const metroName = code => (CFG.metros.find(m => m.code === code) || {}).name || code;
-function thinWarning(r, dvi, ik, prov, munis, metro) {
+function thinWarning(r, dvi, ik, prov, munis) {
   const inSel = new Set(); for (let i = 0; i < N; i++) if (col[ik][i] !== null && (!prov || col.prov[i] === prov)) inSel.add(col.code[i]);
-  const tail = " Standard errors are therefore robust (HC1) standard errors rather than clustered by municipality, and are likely to be too small.";
-  if (metro) return "Warning: the metro filter covers a single municipality, " + esc(metroName(metro)) + ", so the sample is only "
-      + r.n.toLocaleString("en-ZA") + " wards." + tail;
+  const tail = " Standard errors are therefore robust (HC1) standard errors rather than clustered by municipality.";
   if (dvi.who && r.G < inSel.size)
     return "Warning: " + esc(dvi.who) + " stood " + (dvi.kind === "swing" ? "in both 2021 and 2026 " : "") + "in only " + munis(r.G)
       + (prov ? inProv(prov) : "") + ", so the sample is only " + r.n.toLocaleString("en-ZA") + " wards." + tail;
