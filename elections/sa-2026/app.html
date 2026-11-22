@@ -144,9 +144,10 @@ function draw() {
   if (!r) { $("stats").innerHTML = "There is no variation in <b>" + esc(ivo.phrase) + "</b> among these wards, so no relationship can be estimated."; $("reg").innerHTML = ""; return; }
   const up = r.b >= 0 ? "higher" : "lower", mag = f2(Math.abs(r.b)), yu = "percentage points";
   const nz = X.filter(v => v > 0).length, zeroNote = !ivo.log && nz < 0.5 * X.length ? ` · only ${nz.toLocaleString("en-ZA")} of these wards are above zero on the census variable, so the slope rests on them` : "";
-  const lead = ivo.log ? "Wards <b>ten times</b> as densely populated have, on average, "
-                       : "Wards where <b>" + esc(ivo.phrase) + "</b> is <b>1 percentage point higher</b> have, on average, ";
-  $("stats").innerHTML = lead + "<b>" + esc(dvi.phrase) + "</b> <b>" + mag + " " + yu + " " + up + "</b>"
+  // "In wards where X is 1 point higher, Y is on average Z points higher": a comparison across wards, not a change over time
+  const lead = ivo.log ? "In wards <b>ten times as densely populated</b>, "
+                       : "In wards where <b>" + esc(ivo.phrase) + "</b> is <b>1 percentage point higher</b>, ";
+  $("stats").innerHTML = lead + "<b>" + esc(dvi.phrase) + "</b> is on average <b>" + mag + " " + yu + " " + up + "</b>"
     + (r.lo <= 0 && r.hi >= 0 ? " (not distinguishable from zero)" : "") + ".";
   $("reg").innerHTML = `Linear regression (OLS) estimate: slope ${f2(r.b)} (95% CI ${f2(r.lo)} to ${f2(r.hi)}; SE ${f2(r.se)}, clustered by municipality) · ${r.n.toLocaleString("en-ZA")} wards in ${r.G} municipalities${prov ? " in " + esc(prov) : ""}${zeroNote}${fit === "loess" ? " · the curve is a loess smoother; the slope is from the linear fit" : ""}`;
 }
