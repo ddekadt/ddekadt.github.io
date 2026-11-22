@@ -5,7 +5,7 @@ nav: elections
 permalink: /elections/
 ---
 
-## south african elections
+## election analysis
 
 Maps and analysis of South African election results.
 
