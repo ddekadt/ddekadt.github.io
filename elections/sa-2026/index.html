@@ -2308,9 +2308,11 @@ cursor: pointer;
 .menu-toggle .menu-current { font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .menu-toggle .menu-caret { flex: none; color: #6b6a66; transition: transform 0.15s; }
 .side-col.menu-open .menu-toggle .menu-caret { transform: rotate(180deg); }
-.side-col > .nav-tabs { display: none; }
-.side-col.menu-open > .nav-tabs {
-display: flex;
+
+.side-tabs .side-col > .nav-tabs { display: none !important; }
+.side-tabs .side-col.menu-open > .nav-tabs {
+display: flex !important;
+flex-wrap: nowrap; 
 flex-direction: column;
 position: absolute;
 top: 100%;
@@ -2504,6 +2506,7 @@ body.fig-viewer-open { overflow: hidden; }
   }
   setCurrent();
   btn.addEventListener("click", function () { setOpen(!col.classList.contains("menu-open")); });
+  nav.addEventListener("click", function (e) { if (e.target.closest(".nav-link")) setOpen(false); });   // also the current section
   document.addEventListener("click", function (e) { if (!col.contains(e.target)) setOpen(false); });
   document.addEventListener("keydown", function (e) {
     if (e.key === "Escape" && col.classList.contains("menu-open")) { setOpen(false); btn.focus(); }
