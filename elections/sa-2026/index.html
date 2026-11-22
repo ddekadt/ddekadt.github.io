@@ -2188,6 +2188,8 @@ max-height: calc(100vh - 5rem);
 margin: 0 auto;
 }
 
+.panel-tabset img[width][height] { width: 100%; object-fit: contain; }
+
 .draft-note {
 border: 1px dashed #c9c8c3;
 border-radius: 6px;
@@ -2384,6 +2386,10 @@ color: #fff;
 .ward-map, .census-app { height: calc(100dvh - 7rem); }
 }
 
+@media (max-width: 991.98px) and (max-height: 500px) and (orientation: landscape) {
+.ward-map { min-height: 0; height: calc(100vh - 49px - 1rem); height: calc(100dvh - 49px - 1rem); }
+}
+
 
 .fig-zoom {
 display: none;
@@ -2519,7 +2525,7 @@ body.fig-viewer-open { overflow: hidden; }
     setCurrent();
     setOpen(false);
     var content = side.querySelector(":scope > .tab-content");
-    var stuck = getComputedStyle(col).position === "sticky" && col.getBoundingClientRect().top <= 1 ? col.offsetHeight : 0;
+    var stuck = matchMedia("(max-width: 991.98px)").matches && col.getBoundingClientRect().top <= 1 ? col.offsetHeight : 0;   // the bar (narrow screens) only
     var top = content.getBoundingClientRect().top - stuck - 16;
     if (top < 0) window.scrollBy(0, top);
   });
@@ -2556,17 +2562,19 @@ document.addEventListener("DOMContentLoaded", function () {
 // figure's own file, already downloaded when the reader could see it (img-src 'self' in the page's CSP).
 (function () {
   var SMALL = window.matchMedia("(max-width: 767.98px)");   // same query as .fig-zoom in page.css
+  if (history.state && history.state.figViewer) history.replaceState(null, "");   // reloaded with the viewer open
   var viewer = null, opener = null;
   function close(fromPop) {
     if (!viewer) return;
     viewer.remove(); viewer = null;
     document.body.classList.remove("fig-viewer-open");
+    var main = document.getElementById("quarto-content"); if (main) main.inert = false;
     if (opener) opener.focus({ preventScroll: true });
     if (!fromPop && history.state && history.state.figViewer) history.back();
   }
-  function open(img) {
+  function open(img, from) {
     if (viewer) return;
-    opener = img;
+    opener = from || null;   // focus goes back to the Enlarge button that opened it
     viewer = document.createElement("div");
     viewer.className = "fig-viewer";
     viewer.setAttribute("role", "dialog");
@@ -2581,6 +2589,7 @@ document.addEventListener("DOMContentLoaded", function () {
     viewer.appendChild(btn); viewer.appendChild(big);
     document.body.appendChild(viewer);
     document.body.classList.add("fig-viewer-open");
+    var main = document.getElementById("quarto-content"); if (main) main.inert = true;   // keyboard stays in the viewer
     history.pushState({ figViewer: true }, "");
     btn.focus({ preventScroll: true });
   }
@@ -2590,10 +2599,10 @@ document.addEventListener("DOMContentLoaded", function () {
     document.querySelectorAll(".panel-tabset figure img").forEach(function (img) {
       img.classList.add("zoomable");
       var b = document.createElement("button");
-      b.type = "button"; b.className = "fig-zoom"; b.textContent = "Enlarge figure ⤢";
-      b.addEventListener("click", function () { open(img); });
+      b.type = "button"; b.className = "fig-zoom"; b.textContent = "Enlarge figure";
+      b.addEventListener("click", function () { open(img, b); });
       img.closest("figure").appendChild(b);
-      img.addEventListener("click", function () { if (SMALL.matches) open(img); });
+      img.addEventListener("click", function () { if (SMALL.matches) open(img, null); });
     });
   });
 })();
@@ -2909,7 +2918,7 @@ document.addEventListener("DOMContentLoaded", function () {
   window.addEventListener("message", function (e) {
     var f = document.querySelector("iframe.census-app"), h = e.data && e.data.censusAppHeight;
     if (!f || e.source !== f.contentWindow || typeof h !== "number" || !(h > 0 && h < 6000)) return;
-    f.style.minHeight = Math.ceil(h) + 2 + "px";   // + the frame's 1px borders
+    f.style.minHeight = Math.max(560, Math.ceil(h) + 2) + "px";   // + the frame's 1px borders; never below page.css's 560px
   });
   document.addEventListener("DOMContentLoaded", function () {
     var pane = document.getElementById("census-app-slot");
