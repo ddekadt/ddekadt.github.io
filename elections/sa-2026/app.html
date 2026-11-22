@@ -78,7 +78,7 @@
     <details class="help"><summary>How to read the results</summary>
       <ul>
         <li>Each point is a 2026 ward.</li>
-        <li>The slope is the expected difference in the outcome for a ward one unit higher on the census variable (e.g. one percentage point), from an ordinary least squares regression with each ward counted once. Its confidence interval allows for wards in the same municipality being alike (standard errors clustered by municipality). Where the selection covers fewer than 10 municipalities (any Gauteng view, or a party that stood in few municipalities of a province), there are too few to cluster on: the tool then uses robust (HC1) standard errors and shows a warning. Within one metro all wards are in one municipality, so there is nothing to cluster on and robust (HC1) standard errors are used.</li>
+        <li>The slope is the expected difference in the outcome for a ward one unit higher on the census variable (e.g. one percentage point), from an ordinary least squares regression with each ward counted once. Its confidence interval allows for wards in the same municipality being alike on both the outcome and the census variable (standard errors clustered by municipality). Where the selection covers fewer than 10 municipalities (any Gauteng view, or a party that stood in few municipalities of a province), there are too few to cluster on: the tool then uses robust (HC1) standard errors and shows a warning. Within one metro all wards are in one municipality, so there is nothing to cluster on and robust (HC1) standard errors are used.</li>
         <li>These are associations across wards, not effects on individual voters.</li>
       </ul>
     </details>
