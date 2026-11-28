@@ -1,7 +1,26 @@
 <!doctype html>
 <html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline'; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'sha256-h9h2wFIUEjtlZIXPjRJckuSOrehBZ4UHpEjPViIWi7s=' 'sha256-xAF6cCgjsP5qJ7xnlrRMMk/JbM21AE32wlxD9xPkjdk='; style-src 'unsafe-inline'; img-src data:; base-uri 'none'; form-action 'none'">
 <meta name="referrer" content="no-referrer">
+
+<style id="frame-guard">html { visibility: hidden; }</style>
+<noscript><style>html { visibility: visible; }</style></noscript>
+<script>
+(function () {
+  var here = location.protocol + "//" + location.host;
+  var ok = window.top === window.self || location.protocol === "file:" || /^(localhost|127\.0\.0\.1|\[::1\])$/.test(location.hostname);
+  if (!ok) try { ok = window.parent.location.origin === here; } catch (e) {}
+  if (!ok) ok = location.ancestorOrigins ? Array.prototype.every.call(location.ancestorOrigins, function (o) { return o === here; }) : self.origin === "null";
+  var unhide = function () { var s = document.getElementById("frame-guard"); if (s) s.remove(); };
+  if (ok) return unhide();
+  document.addEventListener("DOMContentLoaded", function () {
+    var a = document.createElement("a"); a.href = location.href; a.target = "_blank"; a.rel = "noopener"; a.textContent = a.href;
+    var p = document.createElement("p"); p.style.cssText = "font: 16px system-ui, sans-serif; margin: 2em; max-width: 36em";
+    p.append("This page is shown inside another website. Read it on its own site: ", a);
+    document.body.replaceChildren(p); document.title = "Open on its own site"; unhide();
+  });
+})();
+</script>
 <title>South Africa 2026 local elections: census and the vote</title>
 <style>
   body { margin: 0; font-family: Roboto, system-ui, -apple-system, "Segoe UI", sans-serif; color: #2b2b29; background: #fff; }
@@ -30,9 +49,7 @@
   .grid line { stroke: #eeede8; }
   .lab { font-size: 12px; fill: #4a4945; }
   #tip { position: fixed; display: none; pointer-events: none; background: rgba(255,255,255,0.96); border: 1px solid #c9c8c3; border-radius: 4px; padding: 5px 8px; font-size: 12px; line-height: 1.35; box-shadow: 0 1px 3px rgba(0,0,0,0.15); max-width: 280px; z-index: 5; }
-  /* Phones (and the page's iframe on phones): controls, then the plot, then the help and sources, so the
-     plot is reached without scrolling past the help. Census and Fit share a row. Selects at 16px: iOS Safari
-     zooms the whole page into any form control whose text is smaller. Radio rows padded to be easier to tap. */
+  
   @media (max-width: 720px) {
     .wrap { grid-template-columns: minmax(0, 1fr); grid-template-areas: "ctl" "main" "info"; grid-template-rows: auto; row-gap: 12px; padding: 10px 8px; }
     .panel { display: grid; grid-template-columns: 1fr 1fr; column-gap: 14px; grid-template-areas: "h h" "dv dv" "yr fit" "iv iv" "prov metro"; }
@@ -46,7 +63,7 @@
     .info .help:first-child { margin-top: 4px; }
     .help { font-size: 13px; } .help summary { padding: 6px 0; }
   }
-  @media (pointer: coarse) { .panel select { font-size: 16px; } }   /* touch screens in landscape too (two columns): no iOS zoom on focus */
+  @media (pointer: coarse) { .panel select { font-size: 16px; } }   
 </style></head>
 <body>
 <div class="wrap">
@@ -99,12 +116,12 @@ const esc = t => String(t).replace(/[&<>"\x27]/g, c => ({ "&": "&amp;", "<": "&l
 const $ = id => document.getElementById(id);
 CFG.dv.forEach(v => $("dv").add(new Option(v.label, v.key)));
 CFG.provs.forEach(p => $("prov").add(new Option(p, p)));
-function fillMetro() {   // the eight metros, or only those in the chosen province; keeps the choice if it is still listed
+function fillMetro() {
   const keep = $("metro").value, prov = $("prov").value;
   $("metro").innerHTML = ""; $("metro").add(new Option("No metro filter", ""));
   CFG.metros.filter(m => !prov || m.prov === prov).forEach(m => $("metro").add(new Option(m.name, m.code)));
   $("metro").value = [...$("metro").options].some(o => o.value === keep) ? keep : "";
-  $("metro").disabled = $("metro").options.length < 2;   // a province with no metro
+  $("metro").disabled = $("metro").options.length < 2;
 }
 function yr() { return document.querySelector("input[name=yr]:checked").value; }
 function fillIV() {
@@ -112,17 +129,12 @@ function fillIV() {
   $("iv").innerHTML = ""; CFG.iv[yr()].forEach(v => $("iv").add(new Option(v.label, v.key)));
   const m = [...$("iv").options].findIndex(o => o.text === lab); $("iv").selectedIndex = m >= 0 ? m : 0;
 }
-// ---- statistics ----
-// OLS. Standard errors clustered by municipality (CR1), since wards in one municipality are not independent; when
-// the selection spans fewer than CFG.min_clusters municipalities, too few to cluster on, heteroskedasticity-robust
-// (HC1) standard errors instead, and the results line says so. Intervals use exact t critical values (CFG.t975).
-// "in the Free State", "in Gauteng"
 const inProv = p => " in " + (/^(Free State|Eastern Cape|Northern Cape|Western Cape)$/.test(p) ? "the " : "") + esc(p);
 const tq = df => df >= 1 && df <= CFG.t975.length ? CFG.t975[Math.round(df) - 1] : 1.959964;
 function ols(x, y, g) {
   const n = x.length; let mx = 0, my = 0; for (let i = 0; i < n; i++) { mx += x[i]; my += y[i]; } mx /= n; my /= n;
   let sxx = 0, sxy = 0, syy = 0; for (let i = 0; i < n; i++) { const dx = x[i] - mx, dy = y[i] - my; sxx += dx * dx; sxy += dx * dy; syy += dy * dy; }
-  if (!(sxx > 1e-12)) return null;                                   // no variation in x
+  if (!(sxx > 1e-12)) return null;
   const b = sxy / sxx, a = my - b * mx, rss = Math.max(syy - b * sxy, 0);
   const sc = new Map(); for (let i = 0; i < n; i++) { const e = y[i] - a - b * x[i]; sc.set(g[i], (sc.get(g[i]) || 0) + (x[i] - mx) * e); }
   const G = sc.size; let se, df, clustered = G >= CFG.min_clusters;
@@ -133,28 +145,24 @@ function ols(x, y, g) {
   const t = tq(df);
   return { a, b, se, lo: b - t * se, hi: b + t * se, r2: syy > 0 ? 1 - rss / syy : 0, n, G, clustered };
 }
-function loess(x, y, xs, span) {   // local linear, tricube weights
+function loess(x, y, xs, span) {
   const n = x.length, k = Math.max(10, Math.floor(span * n)), out = [];
   for (const x0 of xs) {
     const d = x.map(v => Math.abs(v - x0)); const h = d.slice().sort((p, q) => p - q)[k - 1] || 1e-9;
     let sw = 0, swx = 0, swy = 0, swxx = 0, swxy = 0;
     for (let i = 0; i < n; i++) { const u = d[i] / h; if (u >= 1) continue; const w = (1 - u ** 3) ** 3; sw += w; swx += w * x[i]; swy += w * y[i]; swxx += w * x[i] * x[i]; swxy += w * x[i] * y[i]; }
     const den = sw * swxx - swx * swx; const b = Math.abs(den) > 1e-12 ? (sw * swxy - swx * swy) / den : 0; const a = (swy - b * swx) / sw;
-    out.push(sw > 0 ? a + b * x0 : null);           // no wards within reach: leave a gap
+    out.push(sw > 0 ? a + b * x0 : null);
   }
   return out;
 }
 function ticks(lo, hi, n) { const span = hi - lo || 1, step0 = span / n, mag = 10 ** Math.floor(Math.log10(step0)), r = step0 / mag;
   const step = (r < 1.5 ? 1 : r < 3 ? 2 : r < 7 ? 5 : 10) * mag; const t = []; for (let v = Math.ceil(lo / step) * step; v <= hi + 1e-9; v += step) t.push(+v.toFixed(10)); return t; }
 const f2 = v => (!isFinite(v) ? "–" : Math.abs(v) >= 100 ? v.toFixed(0) : Math.abs(v) >= 10 ? v.toFixed(1) : Math.abs(v) >= 0.01 || v === 0 ? v.toFixed(2) : v.toPrecision(2));
-// ---- draw ----
-// The plot's coordinate system follows its column's width (up to 760, as before), so text and points keep
-// their size on narrow screens instead of shrinking with the whole drawing; in the one-column (phone) layout
-// it is nearly square.
 let VBW = 760, VBH = 520;
-const oneCol = matchMedia("(max-width: 720px)");   // same breakpoint as the CSS
+const oneCol = matchMedia("(max-width: 720px)");
 function dims() { const cw = $("main").clientWidth || 760, W = Math.round(Math.min(760, Math.max(280, cw)));
-  return [W, Math.round(W * (oneCol.matches && W < 500 ? 0.95 : 520 / 760))]; }   // phone held upright: nearly square
+  return [W, Math.round(W * (oneCol.matches && W < 500 ? 0.95 : 520 / 760))]; }
 function draw() {
   const dk = $("dv").value, ik = $("iv").value, prov = $("prov").value, metro = $("metro").value, fit = document.querySelector("input[name=fit]:checked").value;
   const dvi = CFG.dv.find(v => v.key === dk), ivl = $("iv").options[$("iv").selectedIndex].text;
@@ -174,9 +182,9 @@ function draw() {
   for (let j = 0; j < X.length; j++) { const i = I[j];
     g += `<circle cx="${sx(X[j]).toFixed(1)}" cy="${sy(Y[j]).toFixed(1)}" r="2.3" fill="${cpt}" fill-opacity="${op}"/>`; }
   const r = ols(X, Y, Gk);
-  if (!r) { /* no variation: points only */ }
+  if (!r) {  }
   else if (fit === "lin") { g += `<line x1="${sx(x0)}" y1="${sy(r.a + r.b * x0)}" x2="${sx(x1)}" y2="${sy(r.a + r.b * x1)}" stroke="#2b2b29" stroke-width="2"/>`; }
-  else { const xs = Array.from({ length: 80 }, (_, k) => Math.min(...X) + k * (Math.max(...X) - Math.min(...X)) / 79), ys = loess(X, Y, xs, 0.6);   // span 0.6: smoother than 0.3 (Daniel, 2026-11-21)
+  else { const xs = Array.from({ length: 80 }, (_, k) => Math.min(...X) + k * (Math.max(...X) - Math.min(...X)) / 79), ys = loess(X, Y, xs, 0.6);
     let dpath = "", pen = false; xs.forEach((v, k) => { if (ys[k] === null) { pen = false; return; } dpath += (pen ? "L" : "M") + sx(v).toFixed(1) + "," + sy(ys[k]).toFixed(1); pen = true; });
     g += `<path d="${dpath}" fill="none" stroke="#2b2b29" stroke-width="2"/>`; }
   g += `<g class="axis"><line x1="${m.l}" x2="${m.l + pw}" y1="${m.t + ph}" y2="${m.t + ph}"/>` + xt.map(t => `<text x="${sx(t)}" y="${m.t + ph + 16}" text-anchor="middle">${t}</text>`).join("")
@@ -185,7 +193,6 @@ function draw() {
   g += `<text class="lab" id="ylab" transform="translate(14,${m.t + ph / 2}) rotate(-90)" text-anchor="middle">${esc(dvi.label)}</text>`;
   g += `<circle id="hl" r="5" fill="none" stroke="#2b2b29" stroke-width="1.5" style="display:none"/>`;
   $("plot").innerHTML = g;
-  // Long axis titles on a narrow plot: slide the title along its axis to stay inside the drawing, and shrink it if it is still too long
   [["xlab", W, m.l + pw / 2, c => ["x", c]], ["ylab", H, m.t + ph / 2, c => ["transform", `translate(14,${c}) rotate(-90)`]]].forEach(([id, len, c0, at]) => {
     const el = $(id), L = el.getComputedTextLength(), room = len - 8;
     if (L > room) el.style.fontSize = (12 * room / L).toFixed(1) + "px";
@@ -196,7 +203,6 @@ function draw() {
   if (!r) { $("stats").innerHTML = "There is no variation in <b>" + esc(ivo.phrase) + "</b> among these wards, so no relationship can be estimated."; $("reg").innerHTML = ""; return; }
   const up = r.b >= 0 ? "higher" : "lower", mag = f2(Math.abs(r.b)), yu = "percentage points";
   const nz = X.filter(v => v > 0).length, zeroNote = !ivo.log && nz < 0.5 * X.length ? ` · only ${nz.toLocaleString("en-ZA")} of these wards are above zero on the census variable, so the slope rests on them` : "";
-  // "In wards where X is 1 point higher, Y is on average Z points higher": a comparison across wards, not a change over time
   const lead = ivo.log ? "In wards <b>ten times as densely populated</b>, "
                        : "In wards where <b>" + esc(ivo.phrase) + "</b> is <b>1 percentage point higher</b>, ";
   $("stats").innerHTML = lead + "<b>" + esc(dvi.phrase) + "</b> is on average <b>" + mag + " " + yu + " " + up + "</b>"
@@ -204,11 +210,9 @@ function draw() {
   const munis = n => n === 1 ? "1 municipality" : n + " municipalities";
   $("reg").innerHTML = `Linear regression (OLS) estimate: slope ${f2(r.b)} (95% CI ${f2(r.lo)} to ${f2(r.hi)}; SE ${f2(r.se)}, ${r.clustered ? "clustered by municipality" : "robust (HC1)"}) · ${r.n.toLocaleString("en-ZA")} wards${metro ? " in " + esc(metroName(metro)) : " in " + munis(r.G) + (prov ? inProv(prov) : "")}${zeroNote}${fit === "loess" ? " · the curve is a loess smoother; the slope is from the linear fit" : ""}`
     + (r.clustered ? "" : metro
-        // one metro is one municipality: nothing to cluster on, so robust standard errors are the right ones (Daniel, 2026-11-22)
         ? "<div class=\"se-note\">All these wards are in one municipality, " + esc(metroName(metro)) + ", so there is nothing to cluster on: standard errors are robust (HC1).</div>"
         : "<div class=\"warn\">" + thinWarning(r, dvi, ik, prov, munis) + "</div>");
 }
-// Too few municipalities to cluster on (see ols): say why, and which standard errors are shown instead
 const metroName = code => (CFG.metros.find(m => m.code === code) || {}).name || code;
 function thinWarning(r, dvi, ik, prov, munis) {
   const inSel = new Set(); for (let i = 0; i < N; i++) if (col[ik][i] !== null && (!prov || col.prov[i] === prov)) inSel.add(col.code[i]);
@@ -218,11 +222,10 @@ function thinWarning(r, dvi, ik, prov, munis) {
       + (prov ? inProv(prov) : "") + ", so the sample is only " + r.n.toLocaleString("en-ZA") + " wards." + tail;
   return "Warning: " + (prov ? (/^(Free State|Eastern Cape|Northern Cape|Western Cape)$/.test(prov) ? "The " : "") + esc(prov) + " has" : "These wards are in") + " only " + munis(r.G) + "." + tail;
 }
-// ---- hover: nearest ward within 8 px (in screen pixels) ----
 let PTS = [], LAB = {};
 const tip = document.createElement("div"); tip.id = "tip"; document.body.appendChild(tip);
 $("plot").addEventListener("mousemove", ev => {
-  const svg = $("plot"), r = svg.getBoundingClientRect(), k = VBW / r.width;     // viewBox units per screen px
+  const svg = $("plot"), r = svg.getBoundingClientRect(), k = VBW / r.width;
   const mx = (ev.clientX - r.left) * k, my = (ev.clientY - r.top) * k;
   let best = null, bd = (8 * k) ** 2;
   for (const p of PTS) { const d = (p.px - mx) ** 2 + (p.py - my) ** 2; if (d < bd) { bd = d; best = p; } }
@@ -236,10 +239,9 @@ $("plot").addEventListener("mousemove", ev => {
 });
 function hideTip() { tip.style.display = "none"; const hl = document.getElementById("hl"); if (hl) hl.style.display = "none"; }
 $("plot").addEventListener("mouseleave", hideTip);
-window.addEventListener("scroll", hideTip, { passive: true });   // the tip is fixed to the screen: after a tap and a scroll it would float away from its ward
-// Redraw when the plot column changes width (phone rotated, window resized); size the page's iframe to the app.
+window.addEventListener("scroll", hideTip, { passive: true });
 new ResizeObserver(() => { const [w, h] = dims(); if (w !== VBW || h !== VBH) { hideTip(); draw(); } }).observe($("main"));
-if (window.parent !== window) {   // framed by index.html: report the app's height so the page can show it whole, without a scroll box inside the page
+if (window.parent !== window) {
   const wrap = document.querySelector(".wrap");
   new ResizeObserver(() => parent.postMessage({ censusAppHeight: Math.ceil(wrap.getBoundingClientRect().height) }, "*")).observe(wrap);
 }

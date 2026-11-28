@@ -1,0 +1,2 @@
+# The SA 2026 elections page: never change its files' line endings (its maps allow only scripts with these exact bytes)
+elections/sa-2026/** -text
